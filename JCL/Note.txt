@@ -1,0 +1,57 @@
+Se mevan acentos debido a que tengo teclado ingles, suficiente tengo con cambiar 
+idioma para poner la ñ.
+clases abd pertenecen a iniciador 1
+Iniciador 2,2 A, R, K
+Iniciador 3 A, D
+iniciador 4 C y E
+
+Parametro class permite asignar la clase de entrada en el haze
+
+Fichero de checkpoint es el que se basa el haze para las operaciones que debe realizar
+Se definien varios ficheros de pool solo uno de checkpoint. Generalmente se hacen dos 
+pero es una copia.
+
+Se accede a estos ficheros a travez de archivos secuenciales: conjunto deinformacion 
+estructurado en unidades de acceso o registros que utiliza un formato fijo para cada
+registro. El sistema debe empezar el archivo y leer de arriba a abajo hasta llegar 
+al registro deseado.
+
+Archivos particionados PDS, Conjunto de registros llamados miembros que son escritos 
+de forma secuencial ascendente y registrados con un nombre y un directorio y se 
+almacena en un volumen.
+
+Ficheros VSAM, en desuso, archivos que tienen un metodo de acceso propio, precesado 
+que traten memoria virtual y deben residir en el disco. Organizados en bloques de 
+tamaño fijo: intervalos de control -> areas de control: unidades de reserva de espacio.
+4 tipos: ksds-> llave unica, estar en 1 posicion de registro,  RRDS, SSDS, LDS, 
+archivos generacionales estan cronologicamente relacionados con el mismo nombre, cada 
+que se genera se realiza una nueva version.
+
+Al ejecutar un JOB todas las sentencias deben inicias por //, apartir de las sentencias 
+72 es comentario, las primera sentencias siempre debe ser JOB, todas las sentencias 
+deben ser en mayusculas, como minimo un JOB debe tener un exec: sentencias que se 
+asocia al programa que se quiere ejecutar.
+
+Hay que definir cuanto espacio de maquina vamos a utilizar. A travez de TRK un porcion 
+pequeña de los discos, 
+Sintaxis  basica: nombre, operacion: JOB, EXEC, DD; parametros
+
+Parametros de JOB, especifica informacion del proceso, nomre 8 caracteres maximo, no 
+caracteres especiales, () parametro posicional (opcional), '' descripcion de JOB 20 
+maximo, Notify asigna al usuario a notificar (opcional), class (opcional), msglevel 
+indica el tipo de mensajes que se imprimen en sistema (1,1) 1: si queremos toso los 
+mensajes de JCL, 2 indica si queremos mensajes relacionados al fichero del JOB, 1 si,
+0 no, msgclass inidica la cola de salida donde deja los masajes, TIME indica al cpu 
+el tiempo maximo de ejecucion (min, seg), (1440) 24 h NOLIMIT - MAXIMUM: maximo de 
+tiempo permitido, Region indica la cantidad de memoria que va a usar en 
+su ejecucion, prty establece prioridad en la clase de entrada, al ejecutar job con 
+varios pasos y queremos reiniciar o ejecutar en un especifico ponemos Restart = GO_N
+TYPRUN=SCAN valida el JCL. 
+
+STEPLIB identifica cada fichero logico del JCL con la forma fisica, dsn: nombre del 
+fichero.
+
+TYPRUN =SCAN: revisa  sintaxis pero no ejecutes, HOLH si no hay error se forma cola 
+en el hazepool y se ejecuta cuando lo liberes, COPY: secopia a la clase de salida pero 
+no se ejecuta, JCLHOLD: manda el JOB en estado hold al sistema sin revisar sintaxis.
+
