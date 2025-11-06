@@ -1,0 +1,99 @@
+//JSORT06      JOB (),' ',CLASS=A,MSGCLASS=Q,MSGLEVEL=(1,1),
+//        REGION=0M,NOTIFY=&SYSUID RESTART STEP5
+//***********************************************************
+//*GENERAR UN FICHERO FIJO BLOQUEDAO
+//*A PARTIR DE UN FICHERO VARIABLE BLOQUEADO
+//**********************************************************
+//STEP1   EXEC PGM=SORT,PARM=ABEND
+//SORTIN   DD DSN=DIRECCION.DE.FICHERO.ENTRADA,DISP=SHR
+//SORTOUT1 DD DSN=DIRECCION.DE.FICHERO.SALIDA1,
+//            DISP=(,CATLG),SPACE=(TRK,(50,10),RLSE),
+//            DCB=(RECFM=FB,LRECL=60)
+//FICHERR  DD DSN=DIRECCION.DE.FICHEROSALIDA.ERR,
+//             DISP=(,CATLG),SPACE=(TRK,(50,10),RLSE)
+//SYSIN    DD *
+  SORT FIELDS=COPY
+  OUTFIL  FNAMES=SORTOUT1,VTOF
+  OUTREC=(1:5,60)   
+//SYSOUT   DD SYSOUT=*
+//SYSPRINT DD SYSOUT=* 
+//***********************************************************
+//*OUTREC PARA EDITAR LA SALIDA SEGUN SE DESEE
+//**********************************************************
+//STEP2   EXEC PGM=SORT,PARM=ABEND
+//SORTIN   DD DSN=DIRECCION.DE.FICHERO.ENTRADA,DISP=SHR
+//SORTOUT2 DD DSN=DIRECCION.DE.FICHERO.SALIDA1,
+//            DISP=(,CATLG),SPACE=(TRK,(50,10),RLSE),
+//            DCB=(RECFM=FB,LRECL=60)
+//FICHERR  DD DSN=DIRECCION.DE.FICHEROSALIDA.ERR,
+//             DISP=(,CATLG),SPACE=(TRK,(50,10),RLSE)
+//SYSIN    DD *
+  SORT FIELDS=(01,03,CH,A,             //CURSO
+               45,04,ZD,D)             //NOTA
+  OUTREC FIELDS=(01,22,                //FICHERO HASTA CAMPO PROFESORES
+                32,29)                 //FICHERO DESPUES DE PROFESION
+//SYSOUT   DD SYSOUT=*
+//SYSPRINT DD SYSOUT=* 
+//***********************************************************
+//*OUTREC PARA EDITAR LA SALIDA SEGUN SE DESEE
+//**********************************************************
+//STEP3   EXEC PGM=SORT,PARM=ABEND
+//SORTIN   DD DSN=DIRECCION.DE.FICHERO.ENTRADA,DISP=SHR
+//SORTOUT3 DD DSN=DIRECCION.DE.FICHERO.SALIDA1,
+//            DISP=(,CATLG),SPACE=(TRK,(50,10),RLSE),
+//            DCB=(RECFM=FB,LRECL=60)
+//FICHERR  DD DSN=DIRECCION.DE.FICHEROSALIDA.ERR,
+//             DISP=(,CATLG),SPACE=(TRK,(50,10),RLSE)
+//SYSIN    DD *
+  SORT FIELDS=(01,03,CH,A,             //CURSO
+               45,04,ZD,D)             //NOTA
+  OUTREC FIELDS=(01,03,C´:´,04,07,C´;´,11,02,C´;´,13,10,C´;´,
+                23,01,C´;´,24,11,C´;´,36,04,C´;´,40,6)
+//SYSOUT   DD SYSOUT=*
+//SYSPRINT DD SYSOUT=* 
+//JSORT05      JOB (),' ',CLASS=A,MSGCLASS=Q,MSGLEVEL=(1,1),
+//        REGION=0M,NOTIFY=&SYSUID
+//***********************************************************
+//*DOTAR A UN FICHERO DE UNA CABECERA
+//**********************************************************
+//STEP4   EXEC PGM=SORT,PARM=ABEND
+//SORTIN   DD DSN=DIRECCION.DE.FICHERO.ENTRADA,DISP=SHR
+//         DD DSN=DIRECCION.DE.FICHERO.ENTRADACABECERA,DISP=SHR
+//SORTOUT4  DD DSN=DIRECCION.DE.FICHERO.SALIDA1,
+//            DISP=(,CATLG,DELETE),UNIT=SYSDA,SPACE=(TRK,(10,5),RLSE),
+//            DCB=*.SORTIN
+//SYSIN    DD *
+  SORT FIELDS=COPY
+ 
+//SYSOUT   DD SYSOUT=*
+//SYSPRINT DD SYSOUT=* 
+//***********************************************************
+//*EDITAR CAMPOS
+//**********************************************************
+//STEP5   EXEC PGM=SORT,PARM=ABEND
+//SORTIN   DD DSN=DIRECCION.DE.FICHERO.ENTRADA,DISP=SHR
+//SORTOUT5  DD DSN=DIRECCION.DE.FICHERO.SALIDA1,
+//            DISP=(,CATLG,DELETE),UNIT=SYSDA,SPACE=(TRK,(10,5),RLSE),
+//            LRECL=60,RECFM=FB
+//SYSIN    DD *
+  SORT FIELDS=COPY
+  OUTREC FIELDS=(1,48,
+          49,6,PD,EDIT=(TTTTTTTTT.TTS),SIGNS=(,,+,-))
+ 
+//SYSOUT   DD SYSOUT=*
+//SYSPRINT DD SYSOUT=* 
+//***********************************************************
+//*EDITAR UN CAMPO NUMERICO CON OUTREC
+//**********************************************************
+//STEP6   EXEC PGM=SORT,PARM=ABEND
+//SORTIN   DD DSN=DIRECCION.DE.FICHERO.ENTRADA,DISP=SHR
+//SORTOUT6  DD DSN=DIRECCION.DE.FICHERO.SALIDA1,
+//            DISP=(,CATLG,DELETE),UNIT=SYSDA,SPACE=(TRK,(10,5),RLSE),
+//            LRECL=60,RECFM=FB
+//SYSIN    DD *
+  SORT FIELDS=COPY
+  OUTREC FIELDS=(01,48,49,06,PD,EDIT=(SIIIIIIIIIT.TTS),
+                             SIGNS=(+,-,,)LENGHT=12)
+ 
+//SYSOUT   DD SYSOUT=*
+//SYSPRINT DD SYSOUT=* 
