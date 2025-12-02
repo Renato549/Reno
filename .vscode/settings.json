@@ -1,0 +1,17 @@
+{
+  "zopeneditor.fileExtensions": {
+    "cobol": [".cbl"],
+    "jcl": [".jcl"]
+  },
+  "zopeneditor.workspaceMappings": [
+    {
+      "localPath": "${workspaceFolder}//Cobol/cobol",
+      "zImportPath": "USER.COBOL"
+    },
+    
+    {
+      "localPath": "${workspaceFolder}/Cobol/jcl",
+      "zImportPath": "USER.JCL"
+    }
+  ]
+}
